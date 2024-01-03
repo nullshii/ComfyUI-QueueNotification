@@ -13,7 +13,7 @@ app.registerExtension({
         });
 
         let lastQueueSize = 0;
-        const notificationAudio = new Audio("bell.mp3");
+        const notificationAudio = new Audio("extensions/ComfyUI-QueueNotification/bell.mp3");
         
         // Watch lastQueueSize variable in UI
         Object.defineProperty(app.ui, "lastQueueSize", {
