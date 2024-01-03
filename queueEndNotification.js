@@ -3,13 +3,6 @@ import { app } from "../../scripts/app.js";
 app.registerExtension({
     name: "nullshii.QueueEndNotification",
     init() {
-        // Add setting
-        app.ui.settings.addSetting({
-            id: "nullshii.QueueEndNotification.EnableNotificationSound",
-            name: "Enable Notification Sound",
-            type: "boolean",
-            defaultValue: true,
-        });
         app.ui.settings.addSetting({
             id: "nullshii.QueueEndNotification.NotificationSoundVolume",
             name: "Notification Sound Volume",
@@ -28,8 +21,7 @@ app.registerExtension({
         Object.defineProperty(app.ui, "lastQueueSize", {
             get: () => lastQueueSize,
             set: (v) => {
-                const isNotificationEnabled = app.ui.settings.getSettingValue("nullshii.QueueEndNotification.EnableNotificationSound", true);
-                if (lastQueueSize > v && isNotificationEnabled) {
+                if (lastQueueSize > v) {
                     const notificationVolume = app.ui.settings.getSettingValue("nullshii.QueueEndNotification.NotificationSoundVolume", 40);
 
                     notificationAudio.volume = notificationVolume / 100;
