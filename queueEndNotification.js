@@ -8,8 +8,17 @@ app.registerExtension({
             id: "nullshii.QueueEndNotification.EnableNotificationSound",
             name: "Enable Notification Sound",
             type: "boolean",
-            tooltip: "Play sound when generation queue ends.",
             defaultValue: true,
+        });
+        app.ui.settings.addSetting({
+            id: "nullshii.QueueEndNotification.NotificationSoundVolume",
+            name: "Notification Sound Volume",
+			type: "slider",
+			attrs: {
+				min: 0,
+				max: 100,
+			},
+            defaultValue: 40,
         });
 
         let lastQueueSize = 0;
@@ -21,6 +30,9 @@ app.registerExtension({
             set: (v) => {
                 const isNotificationEnabled = app.ui.settings.getSettingValue("nullshii.QueueEndNotification.EnableNotificationSound", true);
                 if (lastQueueSize > v && isNotificationEnabled) {
+                    const notificationVolume = app.ui.settings.getSettingValue("nullshii.QueueEndNotification.NotificationSoundVolume", 40);
+
+                    notificationAudio.volume = notificationVolume / 100;
                     notificationAudio.play();
                 }
 
